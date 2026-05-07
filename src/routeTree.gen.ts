@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as ExportRouteImport } from './routes/export'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalRoute = JournalRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
+  '/login': typeof LoginRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
+  '/login': typeof LoginRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
+  '/login': typeof LoginRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/export'
     | '/focus'
     | '/journal'
+    | '/login'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/export'
     | '/focus'
     | '/journal'
+    | '/login'
     | '/timeline'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/export'
     | '/focus'
     | '/journal'
+    | '/login'
     | '/timeline'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   ExportRoute: typeof ExportRoute
   FocusRoute: typeof FocusRoute
   JournalRoute: typeof JournalRoute
+  LoginRoute: typeof LoginRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/timeline'
       fullPath: '/timeline'
       preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal': {
@@ -203,8 +223,19 @@ const rootRouteChildren: RootRouteChildren = {
   ExportRoute: ExportRoute,
   FocusRoute: FocusRoute,
   JournalRoute: JournalRoute,
+  LoginRoute: LoginRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
