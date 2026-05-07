@@ -4,11 +4,19 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
+import { StoreProvider } from "@/lib/store";
+import { Sidebar } from "@/components/Sidebar";
+import { CommandPalette } from "@/components/CommandPalette";
+import { AmbientBackground } from "@/components/AmbientBackground";
 
 function NotFoundComponent() {
   return (
