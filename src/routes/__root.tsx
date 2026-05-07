@@ -80,13 +80,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Research OS — Premium AI Research Notebook" },
+      { title: "Research OS" },
       { name: "description", content: "A premium research operating system for tracking experiments, milestones, and insights." },
       { name: "author", content: "Research OS" },
       { property: "og:title", content: "Research OS" },
-      { property: "og:description", content: "Premium research notebook for AI labs." },
+      { property: "og:description", content: "A premium research operating system for tracking experiments, milestones, and insights." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Research OS" },
+      { name: "twitter:description", content: "A premium research operating system for tracking experiments, milestones, and insights." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ede555b6-06dc-4a97-8b94-524e8b79985c/id-preview-b9345e6a--63cee7d3-0cdf-46b4-9a93-16dd1d5cf824.lovable.app-1778131258961.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ede555b6-06dc-4a97-8b94-524e8b79985c/id-preview-b9345e6a--63cee7d3-0cdf-46b4-9a93-16dd1d5cf824.lovable.app-1778131258961.png" },
     ],
     links: [
       {
