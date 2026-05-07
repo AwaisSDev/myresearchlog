@@ -80,14 +80,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Research OS — Premium AI Research Notebook" },
+      { name: "description", content: "A premium research operating system for tracking experiments, milestones, and insights." },
+      { name: "author", content: "Research OS" },
+      { property: "og:title", content: "Research OS" },
+      { property: "og:description", content: "Premium research notebook for AI labs." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
@@ -118,10 +117,33 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [cmd, setCmd] = useState(false);
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  const isFullscreen = path === "/focus" || path === "/export";
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <StoreProvider>
+        <AmbientBackground />
+        <div className="flex min-h-screen w-full">
+          {!isFullscreen && <Sidebar onCommand={() => setCmd(true)} />}
+          <main className="flex-1 min-w-0">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={path}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
+          </main>
+        </div>
+        <CommandPalette open={cmd} onOpenChange={setCmd} />
+        <Toaster position="bottom-right" theme="light" richColors closeButton />
+      </StoreProvider>
     </QueryClientProvider>
   );
 }
