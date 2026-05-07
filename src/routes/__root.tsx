@@ -14,6 +14,7 @@ import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 import { StoreProvider } from "@/lib/store";
+import { AuthProvider } from "@/lib/auth";
 import { Sidebar } from "@/components/Sidebar";
 import { CommandPalette } from "@/components/CommandPalette";
 import { AmbientBackground } from "@/components/AmbientBackground";
