@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as FocusRouteImport } from './routes/focus'
+import { Route as ExportRouteImport } from './routes/export'
 import { Route as ExperimentsRouteImport } from './routes/experiments'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
@@ -30,6 +31,11 @@ const JournalRoute = JournalRouteImport.update({
 const FocusRoute = FocusRouteImport.update({
   id: '/focus',
   path: '/focus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExportRoute = ExportRouteImport.update({
+  id: '/export',
+  path: '/export',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExperimentsRoute = ExperimentsRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
   '/experiments': typeof ExperimentsRoute
+  '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
   '/timeline': typeof TimelineRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
   '/experiments': typeof ExperimentsRoute
+  '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
   '/timeline': typeof TimelineRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/architecture': typeof ArchitectureRoute
   '/experiments': typeof ExperimentsRoute
+  '/export': typeof ExportRoute
   '/focus': typeof FocusRoute
   '/journal': typeof JournalRoute
   '/timeline': typeof TimelineRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/architecture'
     | '/experiments'
+    | '/export'
     | '/focus'
     | '/journal'
     | '/timeline'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/architecture'
     | '/experiments'
+    | '/export'
     | '/focus'
     | '/journal'
     | '/timeline'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/architecture'
     | '/experiments'
+    | '/export'
     | '/focus'
     | '/journal'
     | '/timeline'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   ArchitectureRoute: typeof ArchitectureRoute
   ExperimentsRoute: typeof ExperimentsRoute
+  ExportRoute: typeof ExportRoute
   FocusRoute: typeof FocusRoute
   JournalRoute: typeof JournalRoute
   TimelineRoute: typeof TimelineRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/focus'
       fullPath: '/focus'
       preLoaderRoute: typeof FocusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/export': {
+      id: '/export'
+      path: '/export'
+      fullPath: '/export'
+      preLoaderRoute: typeof ExportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/experiments': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   ArchitectureRoute: ArchitectureRoute,
   ExperimentsRoute: ExperimentsRoute,
+  ExportRoute: ExportRoute,
   FocusRoute: FocusRoute,
   JournalRoute: JournalRoute,
   TimelineRoute: TimelineRoute,
