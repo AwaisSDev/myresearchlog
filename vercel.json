@@ -10,7 +10,7 @@
   ],
   "functions": {
     "server/server.js": {
-      "runtime": "nodejs20.x",
+      "runtime": "nodejs18.x",
       "maxDuration": 10
     }
   }
